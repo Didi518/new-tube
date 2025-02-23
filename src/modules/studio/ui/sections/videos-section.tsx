@@ -11,6 +11,7 @@ import { trpc } from '@/trpc/client';
 import { snakeCaseToTitle } from '@/lib/utils';
 import { DEFAULT_LIMIT } from '@/constants';
 import { InfiniteScroll } from '@/components/infinite-scroll';
+import { Skeleton } from '@/components/ui/skeleton';
 import {
   Table,
   TableBody,
@@ -24,11 +25,66 @@ import { VideoThumbnail } from '@/modules/videos/ui/components/video-thumbnail';
 
 export const VideosSection = () => {
   return (
-    <Suspense fallback={<p>Chargement...</p>}>
+    <Suspense fallback={<VideosSectionSkeleton />}>
       <ErrorBoundary fallback={<p>Erreur...</p>}>
         <VideosSectionSuspense />
       </ErrorBoundary>
     </Suspense>
+  );
+};
+
+const VideosSectionSkeleton = () => {
+  return (
+    <>
+      <div className="border-y">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="pl-6 w-[510px]">Vidéo</TableHead>
+              <TableHead>Visibilité</TableHead>
+              <TableHead>Statut</TableHead>
+              <TableHead>Date</TableHead>
+              <TableHead className="text-right">Vues</TableHead>
+              <TableHead className="text-right">Commentaires</TableHead>
+              <TableHead className="text-right pr-6">Likes</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {Array.from({ length: 5 }).map((_, index) => (
+              <TableRow key={index}>
+                <TableCell className="pl-6">
+                  <div className="flex items-center gap-4">
+                    <Skeleton className="h-20 w-36" />
+                    <div className="flex flex-col gap-2">
+                      <Skeleton className="h-4 w-[100px]" />
+                      <Skeleton className="h-3 w-[150px]" />
+                    </div>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <Skeleton className="h-4 w-20" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton className="h-4 w-16" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton className="h-4 w-24" />
+                </TableCell>
+                <TableCell className="text-right">
+                  <Skeleton className="h-4 w-12 ml-auto" />
+                </TableCell>
+                <TableCell className="text-right">
+                  <Skeleton className="h-4 w-12 ml-auto" />
+                </TableCell>
+                <TableCell className="text-right pr-6">
+                  <Skeleton className="h-4 w-12 ml-auto" />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    </>
   );
 };
 
@@ -68,7 +124,7 @@ const VideosSectionSuspense = () => {
                   legacyBehavior
                 >
                   <TableRow className="cursor-pointer">
-                    <TableCell>
+                    <TableCell className="pl-6">
                       <div className="flex items-center gap-4">
                         <div className="relative aspect-video w-36 shrink-0">
                           <VideoThumbnail
@@ -109,7 +165,9 @@ const VideosSectionSuspense = () => {
                             ? 'en attente'
                             : video.muxStatus === 'error'
                             ? 'erreur'
-                            : 'en cours'
+                            : video.muxStatus === 'preparing'
+                            ? 'en cours'
+                            : 'uploadée'
                         )}
                       </div>
                     </TableCell>
@@ -118,9 +176,13 @@ const VideosSectionSuspense = () => {
                         locale,
                       })}
                     </TableCell>
-                    <TableCell>Vues</TableCell>
-                    <TableCell>Commentaires</TableCell>
-                    <TableCell>Likes</TableCell>
+                    <TableCell className="text-right text-sm">Vues</TableCell>
+                    <TableCell className="text-right text-sm">
+                      Commentaires
+                    </TableCell>
+                    <TableCell className="text-right text-sm pr-6">
+                      Likes
+                    </TableCell>
                   </TableRow>
                 </Link>
               ))}
