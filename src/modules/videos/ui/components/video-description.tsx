@@ -20,6 +20,11 @@ export const VideoDescription = ({
 }: VideoDescriptionProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
+  const formatViews = (views: string) => {
+    const viewCount = parseInt(views.replace(/\D/g, ''), 10);
+    return viewCount <= 1 ? `${views} vue` : `${views} vues`;
+  };
+
   return (
     <div
       onClick={() => setIsExpanded((current) => !current)}
@@ -27,7 +32,7 @@ export const VideoDescription = ({
     >
       <div className="flex gap-2 text-sm mb-2">
         <span className="font-medium">
-          {isExpanded ? expandedViews : compactViews} vues
+          {isExpanded ? formatViews(expandedViews) : formatViews(compactViews)}
         </span>
         <span className="font-medium">
           {isExpanded ? expandedDate : compactDate}
