@@ -4,6 +4,7 @@ import { useAuth } from '@clerk/nextjs';
 import { Button } from '@/components/ui/button';
 import { UserAvatar } from '@/components/user-avatar';
 
+import { useFormatUserName } from '@/hooks/use-format-user-name';
 import { UserInfo } from '@/modules/users/ui/components/user-info';
 import { useSubscription } from '@/modules/subscriptions/hooks/use-subscription';
 import { SubscriptionButton } from '@/modules/subscriptions/ui/components/subscription-button';
@@ -15,10 +16,6 @@ interface VideoOwnerProps {
   videoId: string;
 }
 
-const formatUserName = (name: string) => {
-  return name.replace(/\snull$/, '') || 'Utilisateur inconnu';
-};
-
 export const VideoOwner = ({ user, videoId }: VideoOwnerProps) => {
   const { userId: clerkUserId, isLoaded } = useAuth();
   const { isPending, onClick } = useSubscription({
@@ -26,7 +23,7 @@ export const VideoOwner = ({ user, videoId }: VideoOwnerProps) => {
     isSubscribed: user.viewerSubscribed,
     fromVideoId: videoId,
   });
-
+  const formatUserName = useFormatUserName();
   const formattedName = formatUserName(user.name);
 
   return (
