@@ -58,12 +58,6 @@ export const ThumbnailUploadModal = ({
                 }`
               : 'Choisir un fichier',
         }}
-        // appearance={{
-        //   container: ({ isDragActive }) =>
-        //     `border-dashed border-2 p-4 text-center ${
-        //       isDragActive ? 'border-blue-500' : 'border-gray-300'
-        //     }`,
-        // }}
       />
     </ResponsiveModal>
   );
