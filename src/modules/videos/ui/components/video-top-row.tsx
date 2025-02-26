@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { format, formatDistanceToNow } from 'date-fns';
 import { fr } from 'date-fns/locale/fr';
+import { format, formatDistanceToNow } from 'date-fns';
 
 import { VideoMenu } from './video-menu';
 import { VideoOwner } from './video-owner';
@@ -19,14 +19,14 @@ export const VideoTopRow = ({ video }: VideoTopRowProps) => {
   const compactViews = useMemo(() => {
     return Intl.NumberFormat('fr', {
       notation: 'compact',
-    }).format(1245023);
-  }, []);
+    }).format(video.viewCount);
+  }, [video.viewCount]);
 
   const expandedViews = useMemo(() => {
     return Intl.NumberFormat('fr', {
       notation: 'standard',
-    }).format(1245023);
-  }, []);
+    }).format(video.viewCount);
+  }, [video.viewCount]);
 
   const compactDate = useMemo(() => {
     return formatDistanceToNow(video.createdAt, { addSuffix: true, locale });
