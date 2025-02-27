@@ -3,7 +3,6 @@ import { useAuth } from '@clerk/nextjs';
 
 import { Button } from '@/components/ui/button';
 import { UserAvatar } from '@/components/user-avatar';
-
 import { useFormatUserName } from '@/hooks/use-format-user-name';
 import { UserInfo } from '@/modules/users/ui/components/user-info';
 import { useSubscription } from '@/modules/subscriptions/hooks/use-subscription';

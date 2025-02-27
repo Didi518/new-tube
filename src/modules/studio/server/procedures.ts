@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { and, desc, eq, lt, or } from 'drizzle-orm';
 import { TRPCError } from '@trpc/server';
+import { and, desc, eq, lt, or } from 'drizzle-orm';
 
 import { db } from '@/db';
 import { videos } from '@/db/schema';
@@ -27,6 +27,7 @@ export const studioRouter = createTRPCRouter({
 
       return video;
     }),
+
   getMany: protectedProcedure
     .input(
       z.object({
