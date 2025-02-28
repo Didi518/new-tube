@@ -14,11 +14,10 @@ import {
   Trash2Icon,
 } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
 import { trpc } from '@/trpc/client';
 import { Button } from '@/components/ui/button';
+import { cn, useFormatUserName } from '@/lib/utils';
 import { UserAvatar } from '@/components/user-avatar';
-import { useFormatUserName } from '@/hooks/use-format-user-name';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -28,7 +27,7 @@ import {
 
 import { CommentForm } from './comment-form';
 import { CommentReplies } from './comment-replies';
-import type { CommentsGetManyOutput } from '../../types';
+import { CommentsGetManyOutput } from '../../types';
 
 interface CommentItemProps {
   comment: CommentsGetManyOutput['items'][number];

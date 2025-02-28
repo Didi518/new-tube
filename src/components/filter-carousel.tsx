@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
+import { Skeleton } from '@/components/ui/skeleton';
 import {
   Carousel,
   CarouselApi,
@@ -12,7 +13,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { Skeleton } from '@/components/ui/skeleton';
 
 interface FilterCarouselProps {
   value?: string | null;
@@ -57,7 +57,10 @@ export const FilterCarousel = ({
       />
       <Carousel
         setApi={setApi}
-        opts={{ align: 'start', dragFree: true }}
+        opts={{
+          align: 'start',
+          dragFree: true,
+        }}
         className="w-full px-12"
       >
         <CarouselContent className="-ml-3">

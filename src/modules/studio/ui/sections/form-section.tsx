@@ -1,13 +1,13 @@
 'use client';
 
 import { z } from 'zod';
-import { Suspense, useEffect, useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import { ErrorBoundary } from 'react-error-boundary';
+import Image from 'next/image';
 import { toast } from 'sonner';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import { ErrorBoundary } from 'react-error-boundary';
+import { Suspense, useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   CopyCheckIcon,
@@ -23,15 +23,25 @@ import {
 } from 'lucide-react';
 
 import { trpc } from '@/trpc/client';
-import { videoUpdateSchema } from '@/db/schema';
+import { Input } from '@/components/ui/input';
 import { snakeCaseToTitle } from '@/lib/utils';
+import { videoUpdateSchema } from '@/db/schema';
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Textarea } from '@/components/ui/textarea';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import {
   Form,
   FormControl,
@@ -40,17 +50,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Textarea } from '@/components/ui/textarea';
 
+import { APP_URL } from '@/constants';
 import { THUMBNAIL_FALLBACK } from '@/modules/videos/constants';
 import { VideoPlayer } from '@/modules/videos/ui/components/video-player';
 
@@ -161,6 +162,17 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
     },
   });
 
+  const revalidate = trpc.videos.revalidate.useMutation({
+    onSuccess: () => {
+      utils.studio.getMany.invalidate();
+      utils.studio.getOne.invalidate({ id: videoId });
+      toast.success('Vidéo revalidée');
+    },
+    onError: () => {
+      toast.error('Une erreur est survenue');
+    },
+  });
+
   const generateDescription = trpc.videos.generateDescription.useMutation({
     onSuccess: () => {
       toast.success('Tache en arrière-plan démarrée', {
@@ -212,7 +224,7 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
   }
 
   const fullUrl = `${
-    process.env.VERCEL_URL || 'http://localhost:3000'
+    APP_URL || 'http://localhost:3000'
   }/videos/${videoId}`;
 
   const onCopy = async () => {
@@ -259,6 +271,12 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
+                  <DropdownMenuItem
+                    onClick={() => revalidate.mutate({ id: videoId })}
+                  >
+                    <RotateCcwIcon className="size-4 mr-2" />
+                    Revalider
+                  </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={() => remove.mutate({ id: videoId })}
                   >

@@ -2,10 +2,9 @@ import Link from 'next/link';
 import { useMemo } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 
-import { cn } from '@/lib/utils';
+import { cn, useFormatUserName } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
 import { UserAvatar } from '@/components/user-avatar';
-import { useFormatUserName } from '@/hooks/use-format-user-name';
 import { UserInfo } from '@/modules/users/ui/components/user-info';
 import {
   Tooltip,
@@ -15,7 +14,7 @@ import {
 
 import { VideoMenu } from './video-menu';
 import { VideoGetManyOutput } from '../../types';
-import { VideoThumbnail } from './video-thumbnail';
+import { VideoThumbnail, VideoThumbnailSkeleton } from './video-thumbnail';
 
 const videoRowCardVariants = cva('group flex min-w-0', {
   variants: {
@@ -46,13 +45,44 @@ interface VideoRowCardProps extends VariantProps<typeof videoRowCardVariants> {
   onRemove?: () => void;
 }
 
-export const VideoRowCardSkeleton = () => {
-  return <div>
-    <Skeleton />
-  </div>;
+export const VideoRowCardSkeleton = ({
+  size = 'default',
+}: {
+  size: VariantProps<typeof videoRowCardVariants>['size'];
+}) => {
+  return (
+    <div className={videoRowCardVariants({ size })}>
+      <div className={thumbnailVariants({ size })}>
+        <VideoThumbnailSkeleton />
+      </div>
+      <div className="flex-1 min-w-0">
+        <div className="flex justify-between gap-x-2">
+          <div className="flex-1 min-w-0">
+            <Skeleton
+              className={cn('h-5 w-[40%]', size === 'compact' && 'h-4 w-[40%]')}
+            />
+            {size === 'default' && (
+              <>
+                <Skeleton className="h-4 w-[20%] mt-1" />
+                <div className="flex items-center gap-2 my-3">
+                  <Skeleton className="size-8 rounded-full" />
+                  <Skeleton className="h-4 w-24" />
+                </div>
+              </>
+            )}
+            {size === 'compact' && <Skeleton className="h-4 w-[50%] mt-1" />}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
-export const VideoRowCard = ({ data, size, onRemove }: VideoRowCardProps) => {
+export const VideoRowCard = ({
+  data,
+  size = 'default',
+  onRemove,
+}: VideoRowCardProps) => {
   const formatUserName = useFormatUserName();
   const formattedName = formatUserName(data.user.name);
 

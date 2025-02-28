@@ -1,5 +1,6 @@
-import { clsx, type ClassValue } from 'clsx';
+import { useCallback } from 'react';
 import { twMerge } from 'tailwind-merge';
+import { clsx, type ClassValue } from 'clsx';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -18,4 +19,12 @@ export const snakeCaseToTitle = (str: string) => {
     .split('_')
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(' ');
+};
+
+export const useFormatUserName = () => {
+  const formatUserName = useCallback((name: string) => {
+    return name.replace(/\snull$/, '') || 'Utilisateur inconnu';
+  }, []);
+
+  return formatUserName;
 };
