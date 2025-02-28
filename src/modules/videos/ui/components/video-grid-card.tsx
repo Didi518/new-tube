@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 import { VideoGetManyOutput } from '../../types';
 import { VideoInfo, VideoInfoSkeleton } from './video-info';
@@ -19,6 +22,14 @@ export const VideoGridCardSkeleton = () => {
 };
 
 export const VideoGridCard = ({ data, onRemove }: VideoGridCardProps) => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return null;
+
   return (
     <div className="flex flex-col gap-2 w-full group">
       <Link href={`/videos/${data.id}`}>
