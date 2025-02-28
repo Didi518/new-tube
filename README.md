@@ -18,6 +18,7 @@ QStash - Orchestration des tâches asynchrones
 
 📌 Fonctionnalités
 
+```md
 ✅ Authentification sécurisée (Clerk)
 ✅ Téléchargement et gestion des vidéos (Mux)
 ✅ Système d'abonnement aux chaînes
@@ -27,23 +28,24 @@ QStash - Orchestration des tâches asynchrones
 ✅ Recherche et filtres avancés
 ✅ Optimisation des performances avec Redis
 ✅ Tâches asynchrones via QStash
+```
 
 📂 Structure du projet
 
+```md
 📦 newtube
-
- ┣ 📂 src
- ┃ ┣ 📂 components  # Composants UI réutilisables
- ┃ ┣ 📂 pages       # Pages Next.js
- ┃ ┣ 📂 hooks       # Hooks personnalisés
- ┃ ┣ 📂 lib         # Fonctions utilitaires
- ┃ ┣ 📂 server      # API et backend logic
- ┃ ┣ 📂 styles      # Fichiers CSS / Tailwind
- ┃ ┣ 📂 db          # Modèles et requêtes Drizzle
-
- ┣ 📜 .env         # Variables d'environnement
- ┣ 📜 package.json # Dépendances
- ┣ 📜 README.md    # Documentation
+┣ 📂 src
+┃ ┣ 📂 components # Composants UI réutilisables
+┃ ┣ 📂 pages # Pages Next.js
+┃ ┣ 📂 hooks # Hooks personnalisés
+┃ ┣ 📂 lib # Fonctions utilitaires
+┃ ┣ 📂 server # API et backend logic
+┃ ┣ 📂 styles # Fichiers CSS / Tailwind
+┃ ┣ 📂 db # Modèles et requêtes Drizzle
+┣ 📜 .env # Variables d'environnement
+┣ 📜 package.json # Dépendances
+┣ 📜 README.md # Documentation
+```
 
 
 🚀 Installation et lancement
