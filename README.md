@@ -39,7 +39,7 @@ QStash - Orchestration des tâches asynchrones
 
 Clone le projet :
 
-git clone https://github.com/ton-repo/newtube.git
+git clone https://github.com/Didi518/new-tube/tree/main
 cd newtube
 
 Installe les dépendances :
