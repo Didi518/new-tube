@@ -18,17 +18,17 @@ QStash - Orchestration des tâches asynchrones
 
 📌 Fonctionnalités
 
-```md
-✅ Authentification sécurisée (Clerk)
-✅ Téléchargement et gestion des vidéos (Mux)
-✅ Système d'abonnement aux chaînes
-✅ Système de like/dislike et réactions
-✅ Commentaires et réponses
-✅ Gestion des profils utilisateurs
-✅ Recherche et filtres avancés
-✅ Optimisation des performances avec Redis
-✅ Tâches asynchrones via QStash
-```
+  ```md
+  ✅ Authentification sécurisée (Clerk)
+  ✅ Téléchargement et gestion des vidéos (Mux)
+  ✅ Système d'abonnement aux chaînes
+  ✅ Système de like/dislike et réactions
+  ✅ Commentaires et réponses
+  ✅ Gestion des profils utilisateurs
+  ✅ Recherche et filtres avancés
+  ✅ Optimisation des performances avec Redis
+  ✅ Tâches asynchrones via QStash
+  ```
 
 📂 Structure du projet
 
@@ -70,7 +70,7 @@ QSTASH_TOKEN=...
 
 Lancer le projet en local :
 
-npm run dev
+bun dev:all
 
 📜 Licence
 
