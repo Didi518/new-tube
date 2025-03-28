@@ -5,9 +5,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
+import { Suspense, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ErrorBoundary } from 'react-error-boundary';
-import { Suspense, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   CopyCheckIcon,

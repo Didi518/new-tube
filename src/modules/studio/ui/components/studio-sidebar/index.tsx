@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { LogOutIcon, VideoIcon } from 'lucide-react';
 
@@ -26,7 +26,7 @@ export const StudioSidebar = () => {
   }, []);
 
   if (!isClient) {
-    return null; // ou un loader
+    return null;
   }
 
   return (
