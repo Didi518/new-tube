@@ -176,12 +176,14 @@ const VideosSectionSuspense = () => {
                         locale,
                       })}
                     </TableCell>
-                    <TableCell className="text-right text-sm">Vues</TableCell>
                     <TableCell className="text-right text-sm">
-                      Commentaires
+                      {video.viewCount}
+                    </TableCell>
+                    <TableCell className="text-right text-sm">
+                      {video.commentCount}
                     </TableCell>
                     <TableCell className="text-right text-sm pr-6">
-                      Likes
+                      {video.likeCount}
                     </TableCell>
                   </TableRow>
                 </Link>
