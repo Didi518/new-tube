@@ -1,7 +1,6 @@
 import { z } from 'zod';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
-import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { trpc } from '@/trpc/client';
@@ -36,7 +35,6 @@ export const PlaylistCreateModal = ({
       name: '',
     },
   });
-  const [isClient, setIsClient] = useState(false);
   const utils = trpc.useUtils();
 
   const create = trpc.playlists.create.useMutation({
@@ -50,14 +48,6 @@ export const PlaylistCreateModal = ({
       toast.error('Une erreur est survenue');
     },
   });
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) {
-    return null;
-  }
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     create.mutate(values);

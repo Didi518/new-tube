@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { trpc } from '@/trpc/client';
 import { UploadDropzone } from '@/lib/uploadthing';
@@ -16,16 +16,7 @@ export const ThumbnailUploadModal = ({
   onOpenChange,
 }: ThumbnailUploadModalProps) => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [isClient, setIsClient] = useState(false);
   const utils = trpc.useUtils();
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) {
-    return null;
-  }
 
   const onUploadComplete = () => {
     utils.studio.getMany.invalidate();

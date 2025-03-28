@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -11,14 +10,6 @@ import { AuthButton } from '@/modules/auth/ui/components/auth-button';
 import { SearchInput } from './search-input';
 
 export const HomeNavbar = () => {
-  const [isClient, setisClient] = useState(false);
-
-  useEffect(() => {
-    setisClient(true);
-  }, []);
-
-  if (!isClient) return null;
-
   return (
     <nav className="fixed top-0 left-0 right-0 h-16 bg-white flex items-center px-2 pr-5 z-50">
       <div className="flex items-center gap-4 w-full">

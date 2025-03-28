@@ -7,7 +7,7 @@ import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { ErrorBoundary } from 'react-error-boundary';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   CopyCheckIcon,
@@ -135,7 +135,6 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
   const [video] = trpc.studio.getOne.useSuspenseQuery({ id: videoId });
   const [categories] = trpc.categories.getMany.useSuspenseQuery();
   const [isCopied, setIsCopied] = useState(false);
-  const [isClient, setIsClient] = useState(false);
   const [thumbnailModalOpen, setThumbnailModalOpen] = useState(false);
   const [thumbnailGenerateModalOpen, setThumbnailGenerateModalOpen] =
     useState(false);
@@ -214,14 +213,6 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
   const onSubmit = (data: z.infer<typeof videoUpdateSchema>) => {
     update.mutateAsync(data);
   };
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) {
-    return null;
-  }
 
   const fullUrl = `${APP_URL}/videos/${videoId}`;
 
