@@ -36,15 +36,17 @@ const CategoriesSectionSuspense = ({ categoryId }: CategoriesSectionProps) => {
   }));
 
   const onSelectAction = (value: string | null) => {
-    const url = new URL(window.location.href);
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
 
-    if (value) {
-      url.searchParams.set('categoryId', value);
-    } else {
-      url.searchParams.delete('categoryId');
+      if (value) {
+        url.searchParams.set('categoryId', value);
+      } else {
+        url.searchParams.delete('categoryId');
+      }
+
+      router.push(url.toString());
     }
-
-    router.push(url.toString());
   };
 
   return (

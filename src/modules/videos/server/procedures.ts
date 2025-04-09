@@ -16,6 +16,11 @@ import { mux } from '@/lib/mux';
 import { TRPCError } from '@trpc/server';
 import { workflow } from '@/lib/workflow';
 import {
+  baseProcedure,
+  createTRPCRouter,
+  protectedProcedure,
+} from '@/trpc/init';
+import {
   subscriptions,
   users,
   videoReactions,
@@ -23,11 +28,6 @@ import {
   videoUpdateSchema,
   videoViews,
 } from '@/db/schema';
-import {
-  baseProcedure,
-  createTRPCRouter,
-  protectedProcedure,
-} from '@/trpc/init';
 
 export const videosRouter = createTRPCRouter({
   getManySubscribed: protectedProcedure
@@ -335,7 +335,6 @@ export const videosRouter = createTRPCRouter({
           eq(viewerSubscriptions.creatorId, users.id)
         )
         .where(eq(videos.id, input.id));
-      // .groupBy(videos.id, users.id, viewerReactions.type);
 
       if (!existingVideo) {
         throw new TRPCError({

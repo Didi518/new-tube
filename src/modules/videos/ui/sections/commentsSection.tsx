@@ -49,7 +49,7 @@ export const CommentsSectionSuspense = ({ videoId }: CommentsSectionProps) => {
       <div className="flex flex-col gap-6">
         <h1 className="text-xl font-bold">
           {comments.pages[0].totalCount}{' '}
-          {comments.pages[0].totalCount <= 1 ? 'Commentaire' : 'Commentaires'}
+          {comments.pages[0].totalCount <= 1 ? 'commentaire' : 'commentaires'}
         </h1>
         <CommentForm videoId={videoId} />
         <div className="flex flex-col gap-4 mt-2">
