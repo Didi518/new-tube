@@ -1,7 +1,3 @@
 {
-  "build": {
-    "env": {
-      "NPM_FLAGS": "--legacy-peer-deps"
-    }
-  }
+  "buildCommand": "bun install --legacy-peer-deps && npm run build"
 }
